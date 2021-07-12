@@ -30,7 +30,7 @@ class FieldRemappingTest {
     }
 
     @Test
-    void whatLoomDoes(@TempDir Path tempDir) throws IOException {
+    void whatLoomDoes() throws IOException {
         Path inputJar = tempDir.resolve("input.jar");
         Path outputJar = tempDir.resolve("output.jar");
 
@@ -52,7 +52,7 @@ class FieldRemappingTest {
     }
 
     @Test
-    void whatSeemsToWork(@TempDir Path tempDir) throws IOException {
+    void whatSeemsToWork() throws IOException {
         Path inputJar = tempDir.resolve("input.jar");
         Path outputJar = tempDir.resolve("output.jar");
 
