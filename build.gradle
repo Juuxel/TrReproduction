@@ -1,0 +1,45 @@
+plugins {
+    id 'java'
+}
+
+evaluationDependsOnChildren()
+
+sourceCompatibility = JavaVersion.VERSION_1_8
+targetCompatibility = JavaVersion.VERSION_1_8
+
+sourceSets {
+    test.resources.srcDir 'src/test/copiedResources'
+}
+
+repositories {
+    mavenCentral()
+    maven {
+        name = 'Fabric'
+        url = 'https://maven.fabricmc.net'
+    }
+}
+
+dependencies {
+    testImplementation 'net.fabricmc:tiny-remapper:0.4.2'
+    testImplementation 'org.ow2.asm:asm:9.2'
+    testImplementation 'org.ow2.asm:asm-commons:9.2'
+    testImplementation 'org.assertj:assertj-core:3.20.2'
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
+}
+
+task copySample(type: Copy) {
+    def jar = project(':input').tasks.named('jar')
+    dependsOn jar
+
+    from jar
+    into 'src/test/copiedResources'
+}
+
+processTestResources {
+    dependsOn copySample
+}
+
+test {
+    useJUnitPlatform()
+}
